@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-6">
             <h1>
-                <i class="fas fa-folder"></i> Categories</h1>
+                <i class="fas fa-folder"></i> Tags</h1>
             </div>
         </div>
         </div>
@@ -22,18 +22,18 @@
     </div>
 @endsection
 
-
 @section('content')
 
-    <section id="categories">
+    <section id="tags">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Latest Categories</h4>
+                        <h4>Latest Tags</h4>
                         </div>
-                        @if ($categories->count()>0)
+
+                        @if ($tags->count()>0)
                             <table class="table table-striped">
                                 <thead class="thead-dark">
                                     <tr>
@@ -45,15 +45,15 @@
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($categories as $category)
+                                    @foreach ($tags as $tag)
                                         <tr>
-                                            <td>{{$category->name}}</td>
+                                            <td>{{$tag->name}}</td>
                                             <td></td>
                                             <td>
-                                            <a href="{{route('category.edit',$category->id)}}" class="btn btn-sm btn-info">Edit</a>
+                                                <a href="{{route('tag.edit',$tag->id)}}" class="btn btn-sm btn-info">Edit</a>
                                             </td>
                                             <td>
-                                                <a href="" class="btn btn-danger btn-sm"  onclick="handleDelete({{$category->id}})" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                                <a href="" class="btn btn-danger btn-sm"  onclick="handleDelete({{$tag->id}})" data-toggle="modal" data-target="#deleteModal">Delete</a>
                                             </td>
                                         </tr>
 
@@ -62,11 +62,11 @@
                                 </tbody>
                             </table>
                         @else
-                            <h3>No Categories</h3>
+                            <h3>No Tags To Show</h3>
                         @endif
 
 
-                        <form action="" method="POST" id="deleteCategory">
+                        <form action="" method="POST" id="deleteTag">
 
                             @csrf
                             @method('DELETE')
@@ -75,7 +75,7 @@
                                 <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Delete Catagory</h5>
+                                    <h5 class="modal-title" id="deleteModalLabel">Delete Tag</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -108,8 +108,8 @@
     <script>
         function handleDelete(id){
 
-            var form = document.getElementById('deleteCategory')
-            form.action='/category/'+id
+            var form = document.getElementById('deleteTag')
+            form.action='/tag/'+id
 
         }
 

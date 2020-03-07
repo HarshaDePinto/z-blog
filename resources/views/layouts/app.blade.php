@@ -40,7 +40,13 @@
                     <a href="{{route('post.index')}}" class="nav-link">Posts</a>
                   </li>
                   <li class="nav-item px-2">
+                    <a href="{{route('trashed.index')}}" class="nav-link">Trashed</a>
+                  </li>
+                  <li class="nav-item px-2">
                     <a href="{{route('category.index')}}" class="nav-link">Categories</a>
+                  </li>
+                  <li class="nav-item px-2">
+                    <a href="{{route('tag.index')}}" class="nav-link">Tags</a>
                   </li>
                   <li class="nav-item px-2">
                     <a href="users.html" class="nav-link">Users</a>
@@ -104,6 +110,11 @@
                   <a href="#" class="btn btn-warning btn-block" data-toggle="modal" data-target="#addUserModal">
                     <i class="fas fa-plus"></i> Add User
                   </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="{{route('tag.create')}}" class="btn btn-warning btn-block" >
+                      <i class="fas fa-plus"></i> Add Tags
+                    </a>
                 </div>
               </div>
             </div>

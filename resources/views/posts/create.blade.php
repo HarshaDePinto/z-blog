@@ -3,6 +3,8 @@
 @section('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 
 
@@ -70,8 +72,8 @@
                 <input id="title" name="title" type="text" class="form-control" value="{{isset($post)?$post->title:''}}">
                 </div>
                 <div class="form-group">
-                    <label for="category">Category</label>
-                    <select name="category" id="category" class="form-control">
+                    <label for="category_id">Category</label>
+                    <select name="category_id" id="category_id" class="form-control">
 
                         @foreach ($categories as $category)
                         <option value="{{$category->id}}"
@@ -90,6 +92,34 @@
 
                     </select>
                 </div>
+            @if ($tags->count()>0)
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+
+
+                    <select name="tags[]" id="tags" class="form-control tag-selector" multiple>
+
+                        @foreach ($tags as $tag)
+                        <option value="{{$tag->id}}"
+
+                            @if (isset($post))
+
+                            @if ($post->hasTag($tag->id))
+                            selected
+
+                            @endif
+
+                            @endif
+
+                            >{{$tag->name}}</option>
+                        @endforeach
+
+                    </select>
+
+
+                                </div>
+
+            @endif
                 <div class="form-group">
                     <label for="description">Description</label>
                     <input id="description" type="hidden" name="description">
@@ -97,7 +127,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="content">content</label>
+                    <label for="content">Content</label>
                     <input id="content" type="hidden" name="content">
                     <trix-editor input="content"></trix-editor>
                 </div>
@@ -137,10 +167,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
     <script>
         flatpickr('#published_at',{
             enableTime:true
         })
+
+        $(document).ready(function() {
+            $('.tag-selector').select2();
+            });
     </script>
 
 @endsection
