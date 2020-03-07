@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('styles')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+
 @endsection
 
 
@@ -97,7 +98,7 @@
                     <label for="tags">Tags</label>
 
 
-                    <select name="tags[]" id="tags" class="form-control tag-selector" multiple>
+                    <select name="tags[]" id="tags" class="form-control js-example-basic-multiple" multiple>
 
                         @foreach ($tags as $tag)
                         <option value="{{$tag->id}}"
@@ -117,18 +118,18 @@
                     </select>
 
 
-                                </div>
+                </div>
 
             @endif
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <input id="description" type="hidden" name="description">
+                    <input id="description" type="hidden" name="description" value="{{isset($post)?$post->description:''}}">
                     <trix-editor input="description"></trix-editor>
                 </div>
 
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <input id="content" type="hidden" name="content">
+                    <input id="content" type="hidden" name="content" value="{{isset($post)?$post->content:''}}">
                     <trix-editor input="content"></trix-editor>
                 </div>
 
@@ -136,17 +137,23 @@
 
                 <div class="form-group">
                         <label for="published_at">Published At</label>
-                    <input id="published_at" name="published_at" type="text" class="form-control" >
+                    <input id="published_at" name="published_at" type="text" class="form-control" value="{{isset($post)?$post->published_at:''}}" >
                 </div>
+
+                @if (isset($post))
+                    <div class="form-group">
+                        <img src="{{asset("storage/$post->image")}}" alt="">
+                    </div>
+                @endif
 
                 <div class="form-group">
                     <label for="image">Image</label>
-                <input id="image" name="image" type="file" class="form-control" value="{{isset($post)?$post->image:''}}">
+                <input id="image" name="image" type="file" class="form-control" >
                 </div>
 
                 <div class="form-group">
                     <label for="video">Video</label>
-                <input id="video" name="video" type="text" class="form-control">
+                <input id="video" name="video" type="text" class="form-control" value="{{isset($post)?$post->video:''}}">
                 </div>
 
                  <button class="btn btn-success">{{isset($post)?'Update Post':'Add Post'}}</button>
@@ -168,16 +175,16 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
     <script>
         flatpickr('#published_at',{
             enableTime:true
         })
-
         $(document).ready(function() {
-            $('.tag-selector').select2();
-            });
+    $('.js-example-basic-multiple').select2();
+});
+
     </script>
 
 @endsection

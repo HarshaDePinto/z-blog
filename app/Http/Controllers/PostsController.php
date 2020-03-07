@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Posts\CreatePostRequest;
+use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Post;
 use App\Category;
 use App\Tag;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -77,9 +79,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.create')->with('post', $post)->with('categories', Category::all())->with('tags', Tag::all());
     }
 
     /**
@@ -89,9 +91,20 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $data = $request->all();
+        if ($request->hasFile('image')) {
+            $image = $request->image->store('posts');
+            Storage::delete($post->image);
+            $data['image'] = $image;
+        }
+        $post->update($data);
+
+        session()->flash('success', 'Post Updated Successfully!!!');
+
+        return redirect(route('post.index'));
     }
 
     /**
@@ -105,7 +118,7 @@ class PostsController extends Controller
         $post = Post::withTrashed()->where('id', $id)->firstOrFail();
 
         if ($post->trashed()) {
-            $post->deleteImage();
+            Storage::delete($post->image);
             $post->forceDelete();
         } else {
             $post->delete();

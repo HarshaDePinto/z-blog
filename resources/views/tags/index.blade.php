@@ -1,26 +1,20 @@
 @extends('layouts.app')
 
 @section('header')
-    <header id="main-header" class="py-2 bg-success text-white">
+    <header id="main-header" class="py-2 bg-info text-white">
         <div class="container">
         <div class="row">
             <div class="col-md-6">
             <h1>
-                <i class="fas fa-folder"></i> Tags</h1>
+                <i class="fas fa-tags"></i> Tags</h1>
+
             </div>
         </div>
         </div>
     </header>
 @endsection
 
-@section('search')
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search Categories...">
-        <div class="input-group-append">
-        <button class="btn btn-success">Search</button>
-        </div>
-    </div>
-@endsection
+
 
 @section('content')
 
@@ -38,7 +32,7 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>Name</th>
-                                        <th>Date</th>
+                                        <th>Posts</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -48,7 +42,7 @@
                                     @foreach ($tags as $tag)
                                         <tr>
                                             <td>{{$tag->name}}</td>
-                                            <td></td>
+                                            <td>{{$tag->posts->count()}}</td>
                                             <td>
                                                 <a href="{{route('tag.edit',$tag->id)}}" class="btn btn-sm btn-info">Edit</a>
                                             </td>

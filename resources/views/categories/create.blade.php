@@ -57,6 +57,7 @@
 
 
                 @endif
+
             <form action="{{isset($category)?route('category.update',$category->id):route('category.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @if (isset($category))
@@ -68,9 +69,15 @@
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <input id="description" type="hidden" name="description">
+                        <input id="description" type="hidden" name="description" value="{{isset($category)?$category->description:''}}">
                         <trix-editor input="description"></trix-editor>
                     </div>
+
+                @if (isset($category))
+                    <div class="form-group">
+                        <img src="{{asset("storage/$category->image")}}" alt="">
+                    </div>
+                @endif
                     <div class="form-group">
                         <label for="image">Image</label>
                     <input id="image" name="image" type="file" class="form-control">
@@ -78,7 +85,7 @@
 
                     <div class="form-group">
                         <label for="video">Video</label>
-                    <input id="video" name="video" type="text" class="form-control">
+                    <input id="video" name="video" type="text" class="form-control" value="{{isset($category)?$category->video:''}}">
                     </div>
                     <div class="form-group">
                          <button class="btn btn-success">{{isset($category)?'Update Category':'Add Category'}}</button>

@@ -93,9 +93,7 @@
         <section id="actions" class="py-4 my-4 bg-light">
             <div class="container">
               <div class="row">
-                <div class="col-md-3">
-                  @yield('search')
-                </div>
+
                 <div class="col-md-3">
                   <a href="{{route('post.create')}}" class="btn btn-primary btn-block" >
                     <i class="fas fa-plus"></i> Add Post
@@ -112,15 +110,15 @@
                   </a>
                 </div>
                 <div class="col-md-3">
-                    <a href="{{route('tag.create')}}" class="btn btn-warning btn-block" >
-                      <i class="fas fa-plus"></i> Add Tags
+                    <a href="{{route('tag.create')}}" class="btn btn-info btn-block" >
+                        <i class="fas fa-plus"></i> Add Tags
                     </a>
                 </div>
               </div>
             </div>
         </section>
 
-        <section >
+        <section class="mb-5" >
 
             <div class="container">
                 @if (session()->has('success'))
@@ -134,31 +132,35 @@
                 <div class="col-md-3">
                   <div class="card text-center bg-primary text-white mb-3">
                     <div class="card-body">
-                      <h3>Posts</h3>
-                      <h4 class="display-4">
-                        <i class="fas fa-pencil-alt"></i> 6
-                      </h4>
-                    <a href="{{route('post.index')}}" class="btn btn-outline-light btn-sm">View</a>
+
+                    <a class="display-4 text-white" href="{{route('post.index')}}" ><i class="fas fa-pencil-alt"></i></a>
                     </div>
                   </div>
 
                   <div class="card text-center bg-success text-white mb-3">
                     <div class="card-body">
-                      <h3>Categories</h3>
-                      <h4 class="display-4">
-                        <i class="fas fa-folder"></i> 4
-                      </h4>
-                      <a href="{{route('category.index')}}" class="btn btn-outline-light btn-sm">View</a>
+
+                      <a class="display-4 text-white" href="{{route('category.index')}}" ><i class="fas fa-folder"></i></a>
                     </div>
                   </div>
 
                   <div class="card text-center bg-warning text-white mb-3">
                     <div class="card-body">
-                      <h3>Users</h3>
-                      <h4 class="display-4">
-                        <i class="fas fa-users"></i> 4
-                      </h4>
-                      <a href="users.html" class="btn btn-outline-light btn-sm">View</a>
+
+
+                        <a class="display-4 text-white" href="users.html" ><i class="fas fa-users"></i></a>
+
+
+                    </div>
+                  </div>
+
+                  <div class="card text-center bg-info text-white mb-3">
+                    <div class="card-body">
+
+
+                        <a class="display-4 text-white" href="{{route('tag.index')}}" ><i class="fas fa-tags"></i></a>
+
+
                     </div>
                   </div>
                 </div>

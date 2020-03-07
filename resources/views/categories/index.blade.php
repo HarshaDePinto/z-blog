@@ -13,15 +13,6 @@
     </header>
 @endsection
 
-@section('search')
-    <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search Categories...">
-        <div class="input-group-append">
-        <button class="btn btn-success">Search</button>
-        </div>
-    </div>
-@endsection
-
 
 @section('content')
 
@@ -37,8 +28,10 @@
                             <table class="table table-striped">
                                 <thead class="thead-dark">
                                     <tr>
+                                        <th>Image</th>
                                         <th>Name</th>
-                                        <th>Date</th>
+                                        <th>Posts</th>
+                                        <th>View</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
@@ -47,8 +40,18 @@
                                 <tbody>
                                     @foreach ($categories as $category)
                                         <tr>
+                                            <td>
+                                                <img src="{{asset("storage/$category->image")}}" width="60" alt="">
+                                            </td>
                                             <td>{{$category->name}}</td>
-                                            <td></td>
+                                            <td>
+                                                {{$category->posts->count()}}
+                                            </td>
+
+                                            <td>
+                                                View
+                                            </td>
+
                                             <td>
                                             <a href="{{route('category.edit',$category->id)}}" class="btn btn-sm btn-info">Edit</a>
                                             </td>

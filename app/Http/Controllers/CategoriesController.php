@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Http\Requests\Categories\CreateCategoryRequest;
 use App\Http\Requests\Categories\UpdateCategoryRequest;
+use Illuminate\Support\Facades\Storage;
 
 class CategoriesController extends Controller
 {
@@ -16,7 +17,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('categories.index')->with('categories', Category::all());
+
+        return view('categories.index')->with('categories', Category::orderBy('updated_at', 'desc')->get());
     }
 
     /**
@@ -83,9 +85,15 @@ class CategoriesController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->name = $request->name;
 
-        $category->save();
+        $data = $request->all();
+        if ($request->hasFile('image')) {
+            $image = $request->image->store('categories');
+            Storage::delete($category->image);
+            $data['image'] = $image;
+        }
+
+        $category->update($data);
 
         session()->flash('success', 'Category Edited Successfully!!!');
 
@@ -101,7 +109,7 @@ class CategoriesController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-
+        Storage::delete($category->image);
         session()->flash('success', 'Category Deleted Successfully!!!');
 
         return redirect(route('category.index'));
