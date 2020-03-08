@@ -17,6 +17,11 @@ class WellComeController extends Controller
     public function blog($id)
     {
         $blog = Post::where('id', $id)->firstOrFail();
-        return view('posts.single')->with('blog', $blog)->with('posts', Post::where('category_id', $blog->category_id)->orderBy('updated_at', 'desc')->get());
+        return view('posts.single')->with('blog', $blog)->with('posts', Post::where('category_id', $blog->category_id)->orderBy('updated_at', 'desc')->get())->with('categories', Category::all());
+    }
+
+    public function cat($id)
+    {
+        return view('welcome')->with('posts', Post::where('category_id', $id)->orderBy('updated_at', 'desc')->get())->with('categories', Category::all());
     }
 }

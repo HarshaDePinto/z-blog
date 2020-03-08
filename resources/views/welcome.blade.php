@@ -56,6 +56,49 @@
         width: 100%;
     }
     }
+    .block {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #cc33ff;
+    color: white;
+    padding: 10px 28px;
+    font-size: 20px;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 16px;
+    }
+
+    .dropdown {
+    position: relative;
+    align-content: center;
+    display: block;
+    }
+
+    .dropdown-content {
+    display: none;
+    position: relative;
+    background-color:#e699ff;
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    }
+
+    .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    }
+
+
+    .dropdown-content a:hover {background-color: #666699;}
+
+    .dropdown:hover .dropdown-content {display: block;}
+
+    .dropdown:hover .block {background-color: #990099;}
+    }
 
 
 </style>
@@ -68,18 +111,22 @@
 <!-- MAIN (Center website) -->
 <div class="main mt-5">
 
-    <h1>MYLOGO.COM</h1>
+
     <hr>
-    <div class="container">
+    <div class="dropdown">
+    <button class="block" type="button" data-toggle="dropdown">Categories <span class="caret"></span></button>
+    <div class="dropdown-content">
         @foreach ($categories as $category)
-
-                        <a class="btn btn-primary float-right mx-2 btn-xl" href="#">{{$category->name}}</a>
-
+    <a href="{{route('cat',$category->id)}}">{{$category->name}}</a>
         @endforeach
 
+
+      </div>
     </div>
-    <h2>Latest Update</h2>
-    <p>Resize the browser window to see the responsive effect.</p>
+    <hr>
+
+    <h2>Latest Post</h2>
+
 
     <!-- Portfolio Gallery Grid -->
     {{-- @if ($main)
@@ -109,7 +156,7 @@
                     <img src="{{asset("storage/$post->image")}}" alt="Mountains" style="width:100%"></a>
 
 
-
+                    <div class="addthis_inline_share_toolbox"></div>
                 <p>{!!$post->description!!}</p>
 
                 </div>
@@ -126,3 +173,6 @@
     </div>
 
 @endsection
+
+
+

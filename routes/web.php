@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'WellComeController@index');
 Route::get('/blog/{blog}', 'WellComeController@blog')->name('blog');
+Route::get('/cat/{cat}', 'WellComeController@cat')->name('cat');
 
 
 Auth::routes();
