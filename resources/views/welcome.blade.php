@@ -82,7 +82,7 @@
     <p>Resize the browser window to see the responsive effect.</p>
 
     <!-- Portfolio Gallery Grid -->
-    @if ($main)
+    {{-- @if ($main)
 
 
     @foreach ($main as $ma)
@@ -94,7 +94,9 @@
         <a href="#" class="btn btn-primary">Read More &rarr;</a>
         </div>
     @endforeach
-    @endif
+    @endif --}}
+
+
     <div class="row">
         @if ($posts)
 
@@ -102,10 +104,14 @@
         @foreach ($posts as $post)
             <div class="column">
                 <div class="content">
-                <img src="{{asset("storage/$post->image")}}" alt="Mountains" style="width:100%">
-                <h3>{{$post->title}}</h3>
-                <p>{{$post->description}}</p>
-                <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                    <h3>{{$post->title}}</h3>
+                <a href="{{route('blog',$post->id)}}">
+                    <img src="{{asset("storage/$post->image")}}" alt="Mountains" style="width:100%"></a>
+
+
+
+                <p>{!!$post->description!!}</p>
+
                 </div>
             </div>
 

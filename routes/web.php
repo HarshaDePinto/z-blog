@@ -14,12 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'WellComeController@index');
+Route::get('/blog/{blog}', 'WellComeController@blog')->name('blog');
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('post', 'PostsController');
-Route::resource('category', 'CategoriesController');
-Route::resource('tag', 'TagsController');
-Route::get('trashed', 'PostsController@trashed')->name('trashed.index');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::resource('post', 'PostsController');
+    Route::resource('category', 'CategoriesController');
+    Route::resource('tag', 'TagsController');
+    Route::get('trashed', 'PostsController@trashed')->name('trashed.index');
+});

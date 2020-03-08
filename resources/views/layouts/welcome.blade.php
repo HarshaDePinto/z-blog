@@ -81,12 +81,7 @@
                 </li>
             @endguest
             </ul>
-          </div>
-          <form class="form-inline ml-auto">
-            <input type="text" class="form-control mr-2" placeholder="Search" />
-            <button class="btn btn-outline-primary">Search</button>
-          </form>
-        </div>
+
     </nav>
 {{-- Front Page Nav End --}}
 
